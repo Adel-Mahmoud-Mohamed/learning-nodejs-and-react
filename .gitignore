@@ -1,0 +1,23 @@
+# Node.js dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# IDEs
+.vscode/
+.idea/
+.vs/
+
+# Logs
+*.log
+
+# OS
+Thumbs.db
+.DS_Store
