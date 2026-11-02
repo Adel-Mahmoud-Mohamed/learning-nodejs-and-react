@@ -1,23 +1,13 @@
-# Node.js dependencies
-node_modules/
+# System & OS junk (applies to the whole workspace)
+.DS_Store
+Thumbs.db
+*.log
 
-# Build output
-dist/
-build/
+# Root IDE setups
+.vscode/
+.idea/
 
-# Environment secrets
+# Root Environment (if you keep a global docker-compose or global configuration)
 .env
 .env.*
 !.env.example
-
-# IDEs
-.vscode/
-.idea/
-.vs/
-
-# Logs
-*.log
-
-# OS
-Thumbs.db
-.DS_Store
