@@ -16,6 +16,11 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
+    /* Strict type-checking — catches more bugs at compile time.
+     * Enables: strictNullChecks, noImplicitAny, strictFunctionTypes,
+     * strictBindCallApply, strictPropertyInitialization, etc. */
+    "strict": true,
+
     /* Linting */
     "noUnusedLocals": true,
     "noUnusedParameters": true,
