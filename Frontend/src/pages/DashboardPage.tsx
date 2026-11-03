@@ -1,67 +1,139 @@
-import { useAuth } from "../features/auth/hooks/useAuth";
-import { Button } from "../components/ui/Button";
+import { useCurrentUser } from "../features/auth/hooks/useCurrentUser";
+import { PageContainer } from "../components/layout/PageContainer";
+import { Boxes, Layers, ShieldCheck, UserCheck } from "lucide-react";
 
 export function DashboardPage() {
-  const { user, isAdmin, logout } = useAuth();
+  const { user, isAdmin } = useCurrentUser();
 
   return (
-    <div style={{ maxWidth: "800px", margin: "40px auto", padding: "var(--space-6)" }}>
+    <PageContainer
+      title="Dashboard"
+      description={`Welcome back, ${user?.fullName || "User"}. Here is an overview of your inventory system.`}
+    >
       <div
         style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+          gap: "var(--space-4)",
           marginBottom: "var(--space-6)",
-          paddingBottom: "var(--space-4)",
-          borderBottom: "1px solid var(--color-border)",
         }}
       >
-        <div>
-          <h1>Inventory Dashboard</h1>
-          <p style={{ marginTop: "var(--space-1)" }}>
-            Welcome back, <strong>{user?.fullName}</strong>!
-          </p>
+        <div
+          style={{
+            backgroundColor: "var(--color-bg-surface)",
+            padding: "var(--space-5)",
+            borderRadius: "var(--radius-lg)",
+            border: "1px solid var(--color-border)",
+            display: "flex",
+            alignItems: "center",
+            gap: "var(--space-4)",
+          }}
+        >
+          <div
+            style={{
+              padding: "var(--space-3)",
+              borderRadius: "var(--radius-md)",
+              backgroundColor: "var(--color-primary-light)",
+              color: "var(--color-primary)",
+            }}
+          >
+            <Boxes size={24} />
+          </div>
+          <div>
+            <div style={{ fontSize: "var(--font-size-xs)", color: "var(--color-text-muted)" }}>
+              Catalog
+            </div>
+            <div style={{ fontSize: "var(--font-size-lg)", fontWeight: "var(--font-weight-semibold)" }}>
+              Products
+            </div>
+          </div>
         </div>
-        <Button variant="secondary" onClick={logout}>
-          Sign Out
-        </Button>
+
+        <div
+          style={{
+            backgroundColor: "var(--color-bg-surface)",
+            padding: "var(--space-5)",
+            borderRadius: "var(--radius-lg)",
+            border: "1px solid var(--color-border)",
+            display: "flex",
+            alignItems: "center",
+            gap: "var(--space-4)",
+          }}
+        >
+          <div
+            style={{
+              padding: "var(--space-3)",
+              borderRadius: "var(--radius-md)",
+              backgroundColor: "var(--color-success-bg)",
+              color: "var(--color-success)",
+            }}
+          >
+            <Layers size={24} />
+          </div>
+          <div>
+            <div style={{ fontSize: "var(--font-size-xs)", color: "var(--color-text-muted)" }}>
+              Taxonomy
+            </div>
+            <div style={{ fontSize: "var(--font-size-lg)", fontWeight: "var(--font-weight-semibold)" }}>
+              Categories
+            </div>
+          </div>
+        </div>
+
+        <div
+          style={{
+            backgroundColor: "var(--color-bg-surface)",
+            padding: "var(--space-5)",
+            borderRadius: "var(--radius-lg)",
+            border: "1px solid var(--color-border)",
+            display: "flex",
+            alignItems: "center",
+            gap: "var(--space-4)",
+          }}
+        >
+          <div
+            style={{
+              padding: "var(--space-3)",
+              borderRadius: "var(--radius-md)",
+              backgroundColor: isAdmin ? "var(--color-primary-light)" : "var(--color-bg-muted)",
+              color: isAdmin ? "var(--color-primary)" : "var(--color-text-secondary)",
+            }}
+          >
+            {isAdmin ? <ShieldCheck size={24} /> : <UserCheck size={24} />}
+          </div>
+          <div>
+            <div style={{ fontSize: "var(--font-size-xs)", color: "var(--color-text-muted)" }}>
+              Access Level
+            </div>
+            <div
+              style={{
+                fontSize: "var(--font-size-lg)",
+                fontWeight: "var(--font-weight-semibold)",
+                textTransform: "capitalize",
+              }}
+            >
+              {user?.role}
+            </div>
+          </div>
+        </div>
       </div>
 
       <div
         style={{
           backgroundColor: "var(--color-bg-surface)",
-          border: "1px solid var(--color-border)",
-          borderRadius: "var(--radius-lg)",
           padding: "var(--space-6)",
-          display: "flex",
-          flexDirection: "column",
-          gap: "var(--space-3)",
+          borderRadius: "var(--radius-lg)",
+          border: "1px solid var(--color-border)",
         }}
       >
-        <h2>Your Profile</h2>
-        <p><strong>Email:</strong> {user?.email}</p>
-        <p>
-          <strong>Role:</strong>{" "}
-          <span
-            style={{
-              display: "inline-block",
-              padding: "2px 8px",
-              borderRadius: "var(--radius-sm)",
-              fontSize: "var(--font-size-xs)",
-              fontWeight: "var(--font-weight-semibold)",
-              backgroundColor: isAdmin ? "var(--color-primary-light)" : "var(--color-bg-muted)",
-              color: isAdmin ? "var(--color-primary)" : "var(--color-text-secondary)",
-              textTransform: "uppercase",
-            }}
-          >
-            {user?.role}
-          </span>
-        </p>
-        <p style={{ color: "var(--color-text-muted)", fontSize: "var(--font-size-xs)" }}>
-          Member since {user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : "recently"}
+        <h2 style={{ fontSize: "var(--font-size-lg)", marginBottom: "var(--space-3)" }}>
+          System Ready
+        </h2>
+        <p style={{ color: "var(--color-text-secondary)", lineHeight: "var(--line-height-relaxed)" }}>
+          The application layout, sidebar navigation, and authentication state are all active.
+          Use the navigation links in the sidebar to access Products and Categories.
         </p>
       </div>
-    </div>
+    </PageContainer>
   );
 }
-
